@@ -31,6 +31,10 @@
   transform: translate(-50%, -50%);
 }
 
+.box .pokeball {
+  display: none;
+}
+
 #grille_de_jeu {
   row-gap: 50px;
 }
