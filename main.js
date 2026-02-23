@@ -9,3 +9,7 @@ function buissonClique(indiceBuisson, listeBuissonsTrouves) {
         retournerBuisson(indiceBuisson);
     }
 }
+
+function retournerBuisson(indiceBuisson) {
+    boxes[indiceBuisson].style.display = 'none';
+}
