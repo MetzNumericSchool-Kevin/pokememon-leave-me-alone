@@ -4,12 +4,16 @@ const rejouer = document.querySelector('#rejouer');
 const boxes = document.querySelectorAll('.box');
 const pokemons_captures = document.querySelector('.liste_pokemons_captures');
 
-function buissonClique(indiceBuisson, listeBuissonsTrouves) {
+function buissonClique(indiceBox, listeBuissonsTrouves) {
     if (!listeBuissonsTrouves[indiceBuisson]) {
-        retournerBuisson(indiceBuisson);
+        retournerBuisson(indiceBox);
     }
 }
 
-function retournerBuisson(indiceBuisson) {
-    boxes[indiceBuisson].style.display = 'none';
+function retournerBuisson(indiceBox) {
+    boxes[indiceBox].querySelector('.bush').style.display = 'none';
+}
+
+function ajouterPokeball(indiceBox) {
+    boxes[indiceBox].querySelector('.pokeball').style.display = 'block';
 }
