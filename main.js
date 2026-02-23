@@ -3,3 +3,9 @@ const stat_nombre_de_victoires = document.querySelector('#stat_nombre_de_victoir
 const rejouer = document.querySelector('#rejouer');
 const boxes = document.querySelectorAll('.box');
 const pokemons_captures = document.querySelector('.liste_pokemons_captures');
+
+function buissonClique(indiceBuisson, listeBuissonsTrouves) {
+    if (!listeBuissonsTrouves[indiceBuisson]) {
+        retournerBuisson(indiceBuisson);
+    }
+}
