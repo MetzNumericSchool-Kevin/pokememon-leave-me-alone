@@ -4,8 +4,10 @@ const rejouer = document.querySelector('#rejouer');
 const boxes = document.querySelectorAll('.box');
 const pokemons_captures = document.querySelector('.liste_pokemons_captures');
 
-function buissonClique(indiceBox, listeBuissonsTrouves) {
-    if (!listeBuissonsTrouves[indiceBuisson]) {
+const listePokemonsTrouves = [false, false, false, false, false, false, false, false, false, false, false, false];
+
+function buissonClique(indiceBox, listePokemonsTrouves) {
+    if (!listePokemonsTrouves[indiceBuisson]) {
         retournerBuisson(indiceBox);
     }
 }
