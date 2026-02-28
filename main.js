@@ -42,7 +42,13 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
 }
 
 function retournerBuisson(indiceBox) {
-    boxes[indiceBox].querySelector('.bush').style.display = 'none';
+    if (boxes[indiceBox].querySelector('.bush').style.display == 'none') {
+        boxes[indiceBox].querySelector('.bush').style.display = 'block';
+        console.log('ok');
+    } else {
+        boxes[indiceBox].querySelector('.bush').style.display = 'none';
+        console.log('caché');
+    }
 }
 
 function ajouterPokeball(indiceBox) {
