@@ -17,8 +17,8 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
         if (listePokemonsRetournes.length == 2) {
             if (listePokemonsRetournes[0][1] == listePokemonsRetournes[1][1]) {
                 setTimeout(() => {
-                    //cacherPokemon(listePokemonsRetournes[0][0]);
-                    //cacherPokemon(listePokemonsRetournes[1][0]);
+                    cacherPokemon(listePokemonsRetournes[0][0]);
+                    cacherPokemon(listePokemonsRetournes[1][0]);
                     ajouterPokeball(listePokemonsRetournes[0][0]);
                     ajouterPokeball(listePokemonsRetournes[1][0]);
                     //capturerPokemon(listePokemonsRetournes[0][1]);
@@ -27,8 +27,8 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
                 }, 2000);
             } else {
                 setTimeout(() => {
-                    //cacherPokemon(listePokemonsRetournes[0][0]);
-                    //cacherPokemon(listePokemonsRetournes[1][0]);
+                    cacherPokemon(listePokemonsRetournes[0][0]);
+                    cacherPokemon(listePokemonsRetournes[1][0]);
                     retournerBuisson(listePokemonsRetournes[0][0]);
                     retournerBuisson(listePokemonsRetournes[1][0]);
                     listePokemonsTrouves[listePokemonsRetournes[0][0]] = false;
@@ -59,6 +59,10 @@ function afficherPokemon(indiceBox) {
     const pokemon = document.createElement("div");
     pokemon.textContent = listePokemon[indiceBox];
     boxes[indiceBox].appendChild(pokemon);
+}
+
+function cacherPokemon (indiceBox) {
+    boxes[indiceBox].removeChild(boxes[indiceBox].lastChild);
 }
 
 boxes.forEach((box,i) => {
