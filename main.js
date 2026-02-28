@@ -21,7 +21,7 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
                     cacherPokemon(listePokemonsRetournes[1][0]);
                     ajouterPokeball(listePokemonsRetournes[0][0]);
                     ajouterPokeball(listePokemonsRetournes[1][0]);
-                    //capturerPokemon(listePokemonsRetournes[0][1]);
+                    capturerPokemon(listePokemonsRetournes[0][1]);
                     listePokemonsRetournes.pop();
                     listePokemonsRetournes.pop();
                 }, 2000);
@@ -61,8 +61,14 @@ function afficherPokemon(indiceBox) {
     boxes[indiceBox].appendChild(pokemon);
 }
 
-function cacherPokemon (indiceBox) {
+function cacherPokemon(indiceBox) {
     boxes[indiceBox].removeChild(boxes[indiceBox].lastChild);
+}
+
+function capturerPokemon(pokemon) {
+    const divPokemon = document.createElement("div");
+    divPokemon.textContent = pokemon;
+    pokemonsCaptures.appendChild(divPokemon);
 }
 
 boxes.forEach((box,i) => {
