@@ -14,20 +14,20 @@ boiteDeDialogue.appendChild(score);
 boiteDeDialogue.appendChild(boutonRejouer);
 document.querySelector("body").appendChild(boiteDeDialogue);
 
-const listePokemon = ['pikachu','tiplouf','singicram','roselia','tiplouf','boustiflor','pikachu','roselia','tournevol','boustiflor','singicram','tournevol']
+let listePokemon = [];
+fetch("/data/pokemon.json")
+.then((response) => response.json())
+.then((data) => listePokemon = data)
 const listePokemonsTrouves = [false, false, false, false, false, false, false, false, false, false, false, false];
 const listePokemonsRetournes = [];
-const nombrePairePokemon = listePokemon.length / 2;
-
-const pok = fetch("/data/pokemon.json")
-.then((response) => console.log(response.json()));
+const nombrePairePokemon = 6;
 
 function buissonClique(indiceBox, listePokemonsTrouves) {
     if (!listePokemonsTrouves[indiceBox] && listePokemonsRetournes.length < 2) {
         retournerBuisson(indiceBox);
         afficherPokemon(indiceBox);
         listePokemonsTrouves[indiceBox] = true;
-        listePokemonsRetournes.push([indiceBox,listePokemon[indiceBox]]);
+        listePokemonsRetournes.push([indiceBox,listePokemon[indiceBox].name]);
         if (listePokemonsRetournes.length == 2) {
             statNombreDeCoups.textContent = parseInt(statNombreDeCoups.textContent) + 1;
             if (listePokemonsRetournes[0][1] == listePokemonsRetournes[1][1]) {
@@ -76,8 +76,8 @@ function ajouterPokeball(indiceBox) {
 }
 
 function afficherPokemon(indiceBox) {
-    const pokemon = document.createElement("div");
-    pokemon.textContent = listePokemon[indiceBox];
+    const pokemon = document.createElement("img");
+    pokemon.setAttribute("src",listePokemon[indiceBox].sprite);
     boxes[indiceBox].appendChild(pokemon);
 }
 
