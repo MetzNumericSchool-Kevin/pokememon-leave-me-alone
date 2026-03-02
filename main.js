@@ -56,7 +56,7 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
         retournerBuisson(indiceBox);
         afficherPokemon(indiceBox);
         listePokemonsTrouves[indiceBox] = true;
-        listePokemonsRetournes.push([indiceBox,listePokemonsUtilises[indiceBox].name]);
+        listePokemonsRetournes.push([indiceBox,listePokemonsUtilises[indiceBox].name,listePokemonsUtilises[indiceBox].sprite]);
         if (listePokemonsRetournes.length == 2) {
             statNombreDeCoups.textContent = parseInt(statNombreDeCoups.textContent) + 1;
             if (listePokemonsRetournes[0][1] == listePokemonsRetournes[1][1]) {
@@ -65,7 +65,7 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
                     cacherPokemon(listePokemonsRetournes[1][0]);
                     ajouterPokeball(listePokemonsRetournes[0][0]);
                     ajouterPokeball(listePokemonsRetournes[1][0]);
-                    capturerPokemon(listePokemonsRetournes[0][1]);
+                    capturerPokemon(listePokemonsRetournes[0][2]);
                     listePokemonsRetournes.pop();
                     listePokemonsRetournes.pop();
                     if (pokemonsCaptures.childElementCount == nombrePairePokemon) {
@@ -114,9 +114,11 @@ function cacherPokemon(indiceBox) {
     boxes[indiceBox].removeChild(boxes[indiceBox].lastChild);
 }
 
-function capturerPokemon(pokemon) {
+function capturerPokemon(imagePokemon) {
     const divPokemon = document.createElement("div");
-    divPokemon.textContent = pokemon;
+    const pokemonCapture = document.createElement("img");
+    pokemonCapture.setAttribute("src", imagePokemon);
+    divPokemon.appendChild(pokemonCapture);
     pokemonsCaptures.appendChild(divPokemon);
 }
 
