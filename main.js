@@ -26,6 +26,7 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
         listePokemonsTrouves[indiceBox] = true;
         listePokemonsRetournes.push([indiceBox,listePokemon[indiceBox]]);
         if (listePokemonsRetournes.length == 2) {
+            statNombreDeCoups.textContent = parseInt(statNombreDeCoups.textContent) + 1;
             if (listePokemonsRetournes[0][1] == listePokemonsRetournes[1][1]) {
                 setTimeout(() => {
                     cacherPokemon(listePokemonsRetournes[0][0]);
