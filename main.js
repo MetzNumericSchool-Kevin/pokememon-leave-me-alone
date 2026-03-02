@@ -100,6 +100,10 @@ function reinitialiserJeu() {
     for (let i=0; i<nombrePairePokemon*2;i++) {
         ajouterPokeball(i);
         retournerBuisson(i);
+        listePokemonsTrouves[i] = false;
+    }
+    while (pokemonsCaptures.hasChildNodes()) {
+        pokemonsCaptures.removeChild(pokemonsCaptures.firstChild);
     }
     statNombreDeCoups.textContent = 0;
 }
