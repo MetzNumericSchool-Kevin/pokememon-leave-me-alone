@@ -7,6 +7,8 @@ const pokemonsCaptures = document.querySelector('.liste_pokemons_captures');
 const listePokemon = ['pikachu','tiplouf','singicram','roselia','tiplouf','boustiflor','pikachu','roselia','tournevol','boustiflor','singicram','tournevol']
 const listePokemonsTrouves = [false, false, false, false, false, false, false, false, false, false, false, false];
 const listePokemonsRetournes = [];
+const nombrePairePokemon = listePokemon.length / 2;
+console.log(nombrePairePokemon);
 
 function buissonClique(indiceBox, listePokemonsTrouves) {
     if (!listePokemonsTrouves[indiceBox] && listePokemonsRetournes.length < 2) {
@@ -24,7 +26,12 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
                     capturerPokemon(listePokemonsRetournes[0][1]);
                     listePokemonsRetournes.pop();
                     listePokemonsRetournes.pop();
-                }, 2000);
+                    console.log(pokemonsCaptures.childElementCount);
+                    if (pokemonsCaptures.childElementCount == nombrePairePokemon) {
+                        console.log("ok");
+                        lancerFinDuJeu();
+                    }
+                }, 1000);
             } else {
                 setTimeout(() => {
                     cacherPokemon(listePokemonsRetournes[0][0]);
@@ -44,10 +51,8 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
 function retournerBuisson(indiceBox) {
     if (boxes[indiceBox].querySelector('.bush').style.display == 'none') {
         boxes[indiceBox].querySelector('.bush').style.display = 'block';
-        console.log('ok');
     } else {
         boxes[indiceBox].querySelector('.bush').style.display = 'none';
-        console.log('caché');
     }
 }
 
@@ -69,6 +74,21 @@ function capturerPokemon(pokemon) {
     const divPokemon = document.createElement("div");
     divPokemon.textContent = pokemon;
     pokemonsCaptures.appendChild(divPokemon);
+}
+
+function lancerFinDuJeu() {
+    const boiteDeDialogue = document.createElement("dialog");
+    const partieGagnee = document.createElement("h2");
+    partieGagnee.textContent = "Partie gagnée!";
+    const score = document.createElement("p");
+    score.textContent = "Score: " + statNombreDeCoups.textContent;
+    const rejouer = document.createElement("button");
+    rejouer.textContent = "Rejouer";
+    boiteDeDialogue.appendChild(partieGagnee);
+    boiteDeDialogue.appendChild(score);
+    boiteDeDialogue.appendChild(rejouer);
+    document.querySelector("body").appendChild(boiteDeDialogue);
+    boiteDeDialogue.showModal();
 }
 
 boxes.forEach((box,i) => {
