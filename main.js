@@ -19,6 +19,9 @@ const listePokemonsTrouves = [false, false, false, false, false, false, false, f
 const listePokemonsRetournes = [];
 const nombrePairePokemon = listePokemon.length / 2;
 
+const pok = fetch("/data/pokemon.json")
+.then((response) => console.log(response.json()));
+
 function buissonClique(indiceBox, listePokemonsTrouves) {
     if (!listePokemonsTrouves[indiceBox] && listePokemonsRetournes.length < 2) {
         retournerBuisson(indiceBox);
