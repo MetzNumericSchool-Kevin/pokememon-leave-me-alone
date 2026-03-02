@@ -107,6 +107,7 @@ function ajouterPokeball(indiceBox) {
 function afficherPokemon(indiceBox) {
     const pokemon = document.createElement("img");
     pokemon.setAttribute("src",listePokemonsUtilises[indiceBox].sprite);
+    pokemon.style.width = "100%";
     boxes[indiceBox].appendChild(pokemon);
 }
 
