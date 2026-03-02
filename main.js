@@ -3,12 +3,21 @@ const statNombreDeVictoires = document.querySelector('#stat_nombre_de_victoires'
 const rejouer = document.querySelector('#rejouer');
 const boxes = document.querySelectorAll('.box');
 const pokemonsCaptures = document.querySelector('.liste_pokemons_captures');
+const boiteDeDialogue = document.createElement("dialog");
+const partieGagnee = document.createElement("h2");
+partieGagnee.textContent = "Partie gagnée!";
+const score = document.createElement("p");
+const boutonRejouer = document.createElement("button");
+boutonRejouer.textContent = "Rejouer";
+boiteDeDialogue.appendChild(partieGagnee);
+boiteDeDialogue.appendChild(score);
+boiteDeDialogue.appendChild(boutonRejouer);
+document.querySelector("body").appendChild(boiteDeDialogue);
 
 const listePokemon = ['pikachu','tiplouf','singicram','roselia','tiplouf','boustiflor','pikachu','roselia','tournevol','boustiflor','singicram','tournevol']
 const listePokemonsTrouves = [false, false, false, false, false, false, false, false, false, false, false, false];
 const listePokemonsRetournes = [];
 const nombrePairePokemon = listePokemon.length / 2;
-console.log(nombrePairePokemon);
 
 function buissonClique(indiceBox, listePokemonsTrouves) {
     if (!listePokemonsTrouves[indiceBox] && listePokemonsRetournes.length < 2) {
@@ -26,9 +35,7 @@ function buissonClique(indiceBox, listePokemonsTrouves) {
                     capturerPokemon(listePokemonsRetournes[0][1]);
                     listePokemonsRetournes.pop();
                     listePokemonsRetournes.pop();
-                    console.log(pokemonsCaptures.childElementCount);
                     if (pokemonsCaptures.childElementCount == nombrePairePokemon) {
-                        console.log("ok");
                         lancerFinDuJeu();
                     }
                 }, 1000);
@@ -57,7 +64,11 @@ function retournerBuisson(indiceBox) {
 }
 
 function ajouterPokeball(indiceBox) {
-    boxes[indiceBox].querySelector('.pokeball').style.display = 'block';
+    if (boxes[indiceBox].querySelector('.pokeball').style.display == 'block') {
+        boxes[indiceBox].querySelector('.pokeball').style.display = 'none';
+    } else {
+        boxes[indiceBox].querySelector('.pokeball').style.display = 'block';
+    }
 }
 
 function afficherPokemon(indiceBox) {
@@ -77,20 +88,23 @@ function capturerPokemon(pokemon) {
 }
 
 function lancerFinDuJeu() {
-    const boiteDeDialogue = document.createElement("dialog");
-    const partieGagnee = document.createElement("h2");
-    partieGagnee.textContent = "Partie gagnée!";
-    const score = document.createElement("p");
+    const score = boiteDeDialogue.querySelector("p");
     score.textContent = "Score: " + statNombreDeCoups.textContent;
-    const rejouer = document.createElement("button");
-    rejouer.textContent = "Rejouer";
-    boiteDeDialogue.appendChild(partieGagnee);
-    boiteDeDialogue.appendChild(score);
-    boiteDeDialogue.appendChild(rejouer);
-    document.querySelector("body").appendChild(boiteDeDialogue);
     boiteDeDialogue.showModal();
+}
+
+function reinitialiserJeu() {
+    boiteDeDialogue.close();
+    for (let i=0; i<nombrePairePokemon*2;i++) {
+        ajouterPokeball(i);
+        retournerBuisson(i);
+    }
+    statNombreDeCoups.textContent = 0;
 }
 
 boxes.forEach((box,i) => {
     box.addEventListener("click", function() {buissonClique(i,listePokemonsTrouves)});
 });
+
+boiteDeDialogue.querySelector('button').addEventListener('click', reinitialiserJeu);
+rejouer.addEventListener('click', reinitialiserJeu);
