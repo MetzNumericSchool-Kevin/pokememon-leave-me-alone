@@ -91,6 +91,7 @@ function capturerPokemon(pokemon) {
 function lancerFinDuJeu() {
     const score = boiteDeDialogue.querySelector("p");
     score.textContent = "Score: " + statNombreDeCoups.textContent;
+    statNombreDeVictoires.textContent = parseInt(statNombreDeVictoires.textContent) + 1;
     boiteDeDialogue.showModal();
 }
 
