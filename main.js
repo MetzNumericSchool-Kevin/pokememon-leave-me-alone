@@ -15,19 +15,48 @@ boiteDeDialogue.appendChild(boutonRejouer);
 document.querySelector("body").appendChild(boiteDeDialogue);
 
 let listePokemon = [];
+let listePokemonsChoisis = [];
+let listePokemonsUtilises = [];
 fetch("/data/pokemon.json")
 .then((response) => response.json())
-.then((data) => listePokemon = data)
+.then((data) => {
+    listePokemon = data;
+    listePokemonsChoisis = genererPokemonsAleatoires(nombrePairePokemon,listePokemon);
+    listePokemonsUtilises = genererEmplacementsAleatoires(listePokemonsChoisis);
+})
 const listePokemonsTrouves = [false, false, false, false, false, false, false, false, false, false, false, false];
 const listePokemonsRetournes = [];
 const nombrePairePokemon = 6;
+
+function genererPokemonsAleatoires(nombrePairePokemon,listePokemon) {
+    const indicesChoisis = new Set;
+    while (indicesChoisis.size < nombrePairePokemon) {
+        indicesChoisis.add(Math.floor(Math.random()*(listePokemon.length-1)));
+    }
+    const result = [...indicesChoisis].map(ind => listePokemon[ind]);
+    return result;
+}
+
+function genererEmplacementsAleatoires(listePokemonsChoisis) {
+    const listePokemonsChoisisPaire = [];
+    listePokemonsChoisis.forEach((pokemon) => {
+        listePokemonsChoisisPaire.push(pokemon,pokemon);
+    });
+    const listePokemonsUtilises = [];
+    while (listePokemonsChoisisPaire.length > 0) {
+        const indice = Math.floor(Math.random()*listePokemonsChoisisPaire.length);
+        listePokemonsUtilises.push(listePokemonsChoisisPaire[indice]);
+        listePokemonsChoisisPaire.splice(indice,1);
+    }
+    return listePokemonsUtilises;
+}
 
 function buissonClique(indiceBox, listePokemonsTrouves) {
     if (!listePokemonsTrouves[indiceBox] && listePokemonsRetournes.length < 2) {
         retournerBuisson(indiceBox);
         afficherPokemon(indiceBox);
         listePokemonsTrouves[indiceBox] = true;
-        listePokemonsRetournes.push([indiceBox,listePokemon[indiceBox].name]);
+        listePokemonsRetournes.push([indiceBox,listePokemonsUtilises[indiceBox].name]);
         if (listePokemonsRetournes.length == 2) {
             statNombreDeCoups.textContent = parseInt(statNombreDeCoups.textContent) + 1;
             if (listePokemonsRetournes[0][1] == listePokemonsRetournes[1][1]) {
@@ -77,7 +106,7 @@ function ajouterPokeball(indiceBox) {
 
 function afficherPokemon(indiceBox) {
     const pokemon = document.createElement("img");
-    pokemon.setAttribute("src",listePokemon[indiceBox].sprite);
+    pokemon.setAttribute("src",listePokemonsUtilises[indiceBox].sprite);
     boxes[indiceBox].appendChild(pokemon);
 }
 
