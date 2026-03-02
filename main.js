@@ -138,6 +138,8 @@ function reinitialiserJeu() {
         pokemonsCaptures.removeChild(pokemonsCaptures.firstChild);
     }
     statNombreDeCoups.textContent = 0;
+    listePokemonsChoisis = genererPokemonsAleatoires(nombrePairePokemon,listePokemon);
+    listePokemonsUtilises = genererEmplacementsAleatoires(listePokemonsChoisis);
 }
 
 boxes.forEach((box,i) => {
