@@ -1,5 +1,6 @@
 const statNombreDeCoups = document.querySelector('#stat_nombre_de_coups');
 const statNombreDeVictoires = document.querySelector('#stat_nombre_de_victoires');
+statNombreDeVictoires.textContent = localStorage.getItem("statNombreDeVictoires") ? localStorage.getItem("statNombreDeVictoires") : 0;
 const rejouer = document.querySelector('#rejouer');
 const boxes = document.querySelectorAll('.box');
 const pokemonsCaptures = document.querySelector('.liste_pokemons_captures');
@@ -126,13 +127,15 @@ function capturerPokemon(imagePokemon) {
 function lancerFinDuJeu() {
     const score = boiteDeDialogue.querySelector("p");
     score.textContent = "Score: " + statNombreDeCoups.textContent;
-    statNombreDeVictoires.textContent = parseInt(statNombreDeVictoires.textContent) + 1;
+    const nombreDeVictoires = parseInt(statNombreDeVictoires.textContent) + 1;
+    statNombreDeVictoires.textContent = nombreDeVictoires;
+    localStorage.setItem("statNombreDeVictoires", nombreDeVictoires);
     boiteDeDialogue.showModal();
 }
 
 function reinitialiserJeu() {
     boiteDeDialogue.close();
-    for (let i=0; i<nombrePairePokemon*2;i++) {
+    for (let i=0; i<nombrePairePokemon*2; i++) {
         ajouterPokeball(i);
         retournerBuisson(i);
         listePokemonsTrouves[i] = false;
